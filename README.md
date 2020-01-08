@@ -13,30 +13,52 @@ pip install .
 ```
 
 ## Run example
+Clone this repository, and run the following commands
 
 ```bash
 cd python
-manim example_slide_scene.py
+manim example_slide_scene.py MathTest SimpleVideoSlide
 ```
-This will create and copy the video `MathTest.mp4` and fragments files `MathTest.txt` into the folder `video_slides`.
+This will create and copy the video and fragments files into the folder `video_slides` for each SlideScene.
 
-The javascript code expects two such files for every video slide.
+Copy the folders, `video_slides`, `js`  and the file `index.html` into a new reveal.js directory.
 
-Copy the folders, `video_slides` and `js` into your reveal.js directory.
-
-You can copy the example `index.html` in the repository, or modify your `index.html` as follows:
-
-To add the slide, add the following line in `index.html` inside the `<div class='slides'>` tag.
-
-```html
-<script src="js/add_video_slide.js" slide_scene="MathTest"></script>
-```
-To make the video slide fragments work, add the following script tag at the bottom of your `index.html`
-
-```html
-<script src="js/video_slide.js"></script>
-```
 Finally run `npm start` to start the presentation.
+
+## How to create an animated slide
+
+To create a new slide using manim, follow these steps
+1. Subclass `SlideScene` instead of the `Scene` class.
+2. In the `CONFIG` add the parameter `video_slides_dir`. This should point to a folder called `video_slides` in your reveal.js directory.
+3. In `contruct()`, add the function call `self.slide_break()` whenever you want the presentation to pause.
+4. Run the `manim` command on your python file. This will automatically update the `video_slides` directory you specified in the config.
+5. Add the following tag `<script src="js/add_video_slide.js" slide_scene="SimpleVideoSlide"></script>` instead of `<section> ...</section>` in your `index.html`. You have one such tag for each video slide.
+6. Make sure you add the tag `<script src="js/video_slide.js"></script>` at the bottom of your `index.html`. This only needs to be done once per index.html. This script is needed to make the video slide fragments work.
+7. Run `npm start`, or refresh your browser if you have already started the server.
+
+Below is a simple example of a video slide
+```python
+from manimlib.imports import *
+from manim_reveal import SlideScene
+
+class SimpleVideoSlide(SlideScene):
+    CONFIG={
+        "video_slides_dir":"../video_slides"
+    }
+    def construct(self):
+        gamma = TexMobject("\gamma")
+        gamma.scale(5)
+        obj = Circle()
+
+        self.play(FadeIn(obj))
+        self.slide_break()
+
+        self.play(Transform(obj,gamma))
+        self.slide_break()
+
+        self.play(FadeOut(obj))
+        self.wait(1);
+```
 
 ##Uninstall
 

@@ -1,6 +1,24 @@
 from manimlib.imports import *
 from manim_reveal import SlideScene
 
+class SimpleVideoSlide(SlideScene):
+    CONFIG={
+        "video_slides_dir":"../video_slides"
+    }
+    def construct(self):
+        gamma = TexMobject("\gamma")
+        gamma.scale(5)
+        obj = Circle()
+
+        self.play(FadeIn(obj))
+        self.slide_break()
+
+        self.play(Transform(obj,gamma))
+        self.slide_break()
+
+        self.play(FadeOut(obj))
+        self.wait(1);
+
 class MathTest(SlideScene):
     CONFIG={
         "video_slides_dir":"../video_slides"
