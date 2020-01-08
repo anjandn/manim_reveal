@@ -57,10 +57,10 @@ class SimpleVideoSlide(SlideScene):
         self.slide_break()
 
         self.play(FadeOut(obj))
-        self.wait(1);
+        self.wait(1)
 ```
 
-##Uninstall
+## Uninstall
 
 To uninstall the python package, run
 
