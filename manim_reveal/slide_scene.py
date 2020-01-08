@@ -20,11 +20,13 @@ class SlideScene(Scene):
             out+=f"<p class=\"fragment\" type='video' time_start={self.breaks[i]} time_end={self.breaks[i+1]}></p>\n"
         with open("%s/%s.txt"%(dirname,type(self).__name__),'w') as f:
             f.write(out)
-            
+
     def copy_files(self):
         if self.video_slides_dir !=None:
             dirname=os.path.dirname(self.file_writer.get_movie_file_path())
             slide_name = type(self).__name__
+            if not os.path.exists(self.video_slides_dir):
+                os.makedirs(self.video_slides_dir)
             shutil.copy2(os.path.join(dirname,"%s.mp4"%slide_name), self.video_slides_dir)
             shutil.copy2(os.path.join(dirname,"%s.txt"%slide_name), self.video_slides_dir)
 

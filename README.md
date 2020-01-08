@@ -37,3 +37,11 @@ To make the video slide fragments work, add the following script tag at the bott
 <script src="js/video_slide.js"></script>
 ```
 Finally run `npm start` to start the presentation.
+
+##Uninstall
+
+To uninstall the python package, run
+
+```bash
+pip uninstall manim_reveal
+```
