@@ -8,6 +8,10 @@ class SlideScene(Scene):
         "breaks":[0],
         "video_slides_dir":None
     }
+    def setup(self):
+        super(SlideScene, self).setup()
+        self.breaks=[0]
+
     def slide_break(self,t=0.5):
         self.breaks+=[self.time+t/2]
         self.wait(t)
